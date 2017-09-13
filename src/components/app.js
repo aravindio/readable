@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { Switch, Route } from 'react-router-dom'
 import Header from './header'
 import PostsList from './posts-list'
 import { fetchCategories, fetchPostsAndComments } from '../actions'
@@ -16,7 +17,9 @@ class App extends Component {
     return (
       <div className='app'>
         <Header categories={categories} />
-        <PostsList />
+        <Switch>
+          <Route exact path='/' component={PostsList} />
+        </Switch>
       </div>
     )
   }
