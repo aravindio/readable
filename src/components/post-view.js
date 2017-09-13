@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import FullPost from './full-post'
 import CommentsList from './comments-list'
+import CommentForm from './comment-form'
 
 class PostView extends Component {
   render() {
@@ -10,28 +11,7 @@ class PostView extends Component {
       <div className='container'>
         <FullPost post={post} />
         <CommentsList comments={comments} />
-        <div className='inner-container'>
-          <h4>
-            <b>Add comment</b>
-          </h4>
-          <form>
-            <label>Name</label>
-            <input
-              className='form-control'
-              type='text'
-              name='author'
-            />
-            <label>Comment</label>
-            <textarea
-              className='form-control'
-              name='body'
-            >
-            </textarea>
-            <button className='btn btn-primary' type='submit'>
-              Submit
-            </button>
-          </form>
-        </div>
+        <CommentForm />
       </div>
     )
   }
