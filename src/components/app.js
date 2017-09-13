@@ -1,22 +1,13 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Header from './header'
-import { fetchCategories, fetchPosts, fetchComments } from '../actions'
+import { fetchCategories, fetchPostsAndComments } from '../actions'
 
 class App extends Component {
   componentWillMount() {
-    const { fetchCategories, fetchPosts } = this.props
+    const { fetchCategories, fetchPostsAndComments } = this.props
     fetchCategories()
-    fetchPosts()
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const { posts } = nextProps
-    const { fetchComments } = this.props
-    if (posts) {
-      const postIds = posts.map(p => p.id)
-      fetchComments(postIds)
-    }
+    fetchPostsAndComments()
   }
 
   render() {
@@ -39,8 +30,7 @@ function mapStateToProps ({ posts, categories }) {
 function mapDispatchToProps (dispatch) {
   return {
     fetchCategories: () => dispatch(fetchCategories()),
-    fetchPosts: () => dispatch(fetchPosts()),
-    fetchComments: postIds => dispatch(fetchComments(postIds))
+    fetchPostsAndComments: () => dispatch(fetchPostsAndComments())
   }
 }
 

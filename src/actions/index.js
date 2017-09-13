@@ -5,7 +5,7 @@ import {
 
 import {
   SET_POSTS,
-  fetchPosts
+  fetchPostsAndComments
 } from './posts'
 
 import {
@@ -18,6 +18,6 @@ export {
   SET_POSTS,
   SET_COMMENTS,
   fetchCategories,
-  fetchPosts,
+  fetchPostsAndComments,
   fetchComments
 }

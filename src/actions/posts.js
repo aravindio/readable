@@ -1,4 +1,5 @@
 import * as API from '../utils/api'
+import { fetchComments } from './comments'
 
 export const SET_POSTS = 'SET_POSTS'
 
@@ -7,8 +8,11 @@ export const setPosts = posts => ({
   posts
 })
 
-export const fetchPosts = () => dispatch => (
+export const fetchPostsAndComments = () => dispatch => (
   API
     .getPosts()
-    .then(posts => dispatch(setPosts(posts)))
+    .then(posts => {
+      dispatch(setPosts(posts))
+      dispatch(fetchComments(posts.map(p => p.id)))
+    })
 )
