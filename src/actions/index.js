@@ -3,7 +3,14 @@ import {
   fetchCategories
 } from './categories'
 
+import {
+  SET_POSTS,
+  fetchPosts
+} from './posts'
+
 export {
   SET_CATEGORIES,
-  fetchCategories
+  SET_POSTS,
+  fetchCategories,
+  fetchPosts
 }

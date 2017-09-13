@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { fetchCategories } from '../actions'
+import { fetchCategories, fetchPosts } from '../actions'
 
 class App extends Component {
   componentWillMount() {
-    const { fetchCategories } = this.props
+    const { fetchCategories, fetchPosts } = this.props
     fetchCategories()
+    fetchPosts()
   }
 
   render() {
@@ -19,7 +20,8 @@ class App extends Component {
 
 function mapDispatchToProps (dispatch) {
   return {
-    fetchCategories: () => dispatch(fetchCategories())
+    fetchCategories: () => dispatch(fetchCategories()),
+    fetchPosts: () => dispatch(fetchPosts())
   }
 }
 
