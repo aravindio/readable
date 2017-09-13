@@ -1,12 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import Up from 'react-icons/lib/go/arrow-up'
-import Down from 'react-icons/lib/go/arrow-down'
-import User from 'react-icons/lib/fa/user'
-import Clock from 'react-icons/lib/fa/clock-o'
-import Pencil from 'react-icons/lib/fa/pencil'
-import Trash from 'react-icons/lib/fa/trash'
+import Post from './post'
 
 class PostsList extends Component {
   render() {
@@ -26,42 +21,12 @@ class PostsList extends Component {
           </span>
           <ul>
             {posts && posts.length > 0
-              ? posts.map(post => (
-                  <li key={post.id} className='post'>
-                    <div className='vote-score'>
-                      <div>
-                        <button><Up /></button>
-                      </div>
-                      <div>{post.voteScore}</div>
-                      <div>
-                        <button><Down /></button>
-                      </div>
-                    </div>
-                    <div>
-                      <Link to={`/${post.category + '/' + post.id}`}>
-                        <h5>
-                          <b>{post.title}</b>
-                          <small>
-                            &nbsp;
-                            {
-                              comments && comments[post.id]
-                              && `(${comments[post.id].length} comment` +
-                              `${comments[post.id].length === 1 ? '' : 's'})`
-                            }
-                          </small>
-                        </h5>
-                      </Link>
-                    </div>
-                    <span className='meta'>
-                      <User /> <b>{post.author}</b>{' | '}
-                      <Clock /> <span>{post.timestamp}</span>{' | '}
-                      <Pencil />&nbsp;
-                      <Link to={`/edit/post/${post.id}`}>Edit</Link>{' | '}
-                      <Trash />&nbsp;
-                      <Link to={`/delete/post/${post.id}`}>Delete</Link>
-                    </span>
-                  </li>
-                ))
+              ? posts.map(post => {
+                  let postProps = { post, key: post.id }
+                  if (comments && comments[post.id])
+                    postProps.commentCount = comments[post.id].length
+                  return <Post { ...postProps }/>
+                })
               : <li className='post empty-list'>
                   <b>Oops! There are no posts here.</b>
                 </li>
