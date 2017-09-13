@@ -1,12 +1,17 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import sortBy from 'sort-by'
 import Comment from './comment'
 
 class CommentsList extends Component {
   render() {
-    const { comments } = this.props
+    const { defaultSort } = this.props
+    let { comments } = this.props
     if (comments) {
       const commentsCount = `${comments.length} comment` +
                             `${comments.length === 1 ? '' : 's'}`
+      if (defaultSort)
+        comments = comments.sort(sortBy(`-${defaultSort}`))
       return (
         <div className='comments-list'>
           <h5>
@@ -37,4 +42,10 @@ class CommentsList extends Component {
   }
 }
 
-export default CommentsList
+function mapStateToProps ({ comments }) {
+  return {
+    defaultSort: comments.defaultSort
+  }
+}
+
+export default connect(mapStateToProps)(CommentsList)
