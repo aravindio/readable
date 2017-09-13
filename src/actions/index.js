@@ -17,8 +17,10 @@ import {
   SET_COMMENTS,
   SET_DEFAULT_COMMENTS_SORT,
   SORT_COMMENTS,
+  VOTE_COMMENT,
   fetchComments,
-  sortComments
+  sortComments,
+  sendCommentVote
 } from './comments'
 
 export {
@@ -30,10 +32,12 @@ export {
   SET_COMMENTS,
   SET_DEFAULT_COMMENTS_SORT,
   SORT_COMMENTS,
+  VOTE_COMMENT,
   fetchCategories,
   fetchPostsAndComments,
   sortPosts,
+  sendPostVote,
   fetchComments,
   sortComments,
-  sendPostVote
+  sendCommentVote
 }

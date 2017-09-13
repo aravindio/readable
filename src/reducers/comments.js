@@ -1,7 +1,8 @@
 import {
   SET_COMMENTS,
   SET_DEFAULT_COMMENTS_SORT,
-  SORT_COMMENTS
+  SORT_COMMENTS,
+  VOTE_COMMENT
 } from '../actions'
 
 export default function comments (state = {}, action) {
@@ -21,6 +22,24 @@ export default function comments (state = {}, action) {
       return {
         ...state,
         defaultSort: action.option
+      }
+    case VOTE_COMMENT:
+      const { vCommentid, vParentId, vOption } = action
+      return {
+        ...state,
+        comments: {
+          ...state.comments,
+          [vParentId]: [ ...state.comments[vParentId] ].map(c => {
+            if (c.id === vCommentid) {
+              if (vOption === 'upVote') {
+                return { ...c, voteScore: c.voteScore + 1}
+              } else if (vOption === 'downVote') {
+                return { ...c, voteScore: c.voteScore - 1}
+              }
+            }
+            return c
+          })
+        }
       }
     default:
       return state

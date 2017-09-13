@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import TimeAgo from 'react-timeago'
+import { sendCommentVote } from '../actions'
 import Up from 'react-icons/lib/go/arrow-up'
 import Down from 'react-icons/lib/go/arrow-down'
 import User from 'react-icons/lib/fa/user'
@@ -10,16 +12,20 @@ import Trash from 'react-icons/lib/fa/trash'
 
 class Comment extends Component {
   render() {
-    const { comment } = this.props
+    const { comment, sendCommentVote } = this.props
     return (
       <li key={comment.id} className='comment'>
         <div className='vote-score'>
           <div>
-            <button><Up /></button>
+            <button onClick={() => sendCommentVote(comment.id, 'upVote')}>
+              <Up />
+            </button>
           </div>
           <div>{comment.voteScore}</div>
           <div>
-            <button><Down /></button>
+            <button onClick={() => sendCommentVote(comment.id, 'downVote')}>
+              <Down />
+            </button>
           </div>
         </div>
         <span className='meta'>
@@ -40,4 +46,10 @@ class Comment extends Component {
   }
 }
 
-export default Comment
+function mapDispatchToProps (dispatch) {
+  return {
+    sendCommentVote: (id, option) => dispatch(sendCommentVote(id, option))
+  }
+}
+
+export default connect(null, mapDispatchToProps)(Comment)
