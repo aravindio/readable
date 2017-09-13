@@ -25,6 +25,7 @@ class PostsList extends Component {
               <select
                 value={defaultSort}
                 onChange={e => sortPosts(e.target.value)}
+                disabled={posts.length > 0 ? false : true}
               >
                 <option value='voteScore'>voteScore</option>
                 <option value='timestamp'>timestamp</option>

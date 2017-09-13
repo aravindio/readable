@@ -23,6 +23,7 @@ class CommentsList extends Component {
             <select
               value={defaultSort}
               onChange={e => sortComments(e.target.value)}
+              disabled={comments.length > 0 ? false : true}
             >
               <option value='voteScore'>voteScore</option>
               <option value='timestamp'>timestamp</option>
