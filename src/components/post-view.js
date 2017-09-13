@@ -1,13 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
 import FullPost from './full-post'
-import Up from 'react-icons/lib/go/arrow-up'
-import Down from 'react-icons/lib/go/arrow-down'
-import User from 'react-icons/lib/fa/user'
-import Clock from 'react-icons/lib/fa/clock-o'
-import Pencil from 'react-icons/lib/fa/pencil'
-import Trash from 'react-icons/lib/fa/trash'
+import CommentsList from './comments-list'
 
 class PostView extends Component {
   render() {
@@ -15,61 +9,7 @@ class PostView extends Component {
     return (
       <div className='container'>
         <FullPost post={post} />
-        <div className='comments-list'>
-          <h5>
-            <b>
-              {
-                comments &&
-                `${comments.length} comment` +
-                `${comments.length === 1 ? '' : 's'}`
-              }
-            </b>
-          </h5>
-          <span className='sort-control'>
-            <label>Sort by:</label>
-            <select>
-              <option value='voteScore'>voteScore</option>
-              <option value='timestamp'>timestamp</option>
-            </select>
-          </span>
-          <ul>
-            {comments && comments.length > 0
-              ? comments.map(comment => (
-                  <li key={comment.id} className='comment'>
-                    <div className='vote-score'>
-                      <div>
-                        <button><Up /></button>
-                      </div>
-                      <div>{comment.voteScore}</div>
-                      <div>
-                        <button><Down /></button>
-                      </div>
-                    </div>
-                    <span className='meta'>
-                      <User /> <b>{comment.author}</b>{' | '}
-                      <Clock /> <span>{comment.timestamp}</span>
-                    </span>
-                    <div className='comment-body'>
-                      <p>{comment.body}</p>
-                    </div>
-                    <span className='meta'>
-                      <Pencil />{' '}
-                      <button>Edit</button>{' | '}
-                      <Trash />&nbsp;
-                      <Link
-                        to={`/delete/comment/${comment.id}`}
-                      >
-                        Delete
-                      </Link>
-                    </span>
-                  </li>
-                ))
-              : <li className='comment empty-list'>
-                  <b>Oops! No comments available for this post.</b>
-                </li>
-            }
-          </ul>
-        </div>
+        <CommentsList comments={comments} />
         <div className='inner-container'>
           <h4>
             <b>Add comment</b>
