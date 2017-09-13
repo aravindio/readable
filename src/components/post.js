@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import TimeAgo from 'react-timeago'
+import { sendPostVote } from '../actions'
 import Up from 'react-icons/lib/go/arrow-up'
 import Down from 'react-icons/lib/go/arrow-down'
 import User from 'react-icons/lib/fa/user'
@@ -10,18 +12,22 @@ import Trash from 'react-icons/lib/fa/trash'
 
 class Post extends Component {
   render() {
-    const { post, commentCount } = this.props
+    const { post, commentCount, sendPostVote } = this.props
     const commentCountString = `(${commentCount} comment` +
                                `${commentCount === 1 ? '' : 's'})`
     return (
       <li className='post'>
         <div className='vote-score'>
           <div>
-            <button><Up /></button>
+            <button onClick={e => sendPostVote(post.id, 'upVote')}>
+              <Up />
+            </button>
           </div>
           <div>{post.voteScore}</div>
           <div>
-            <button><Down /></button>
+            <button onClick={e => sendPostVote(post.id, 'downVote')}>
+              <Down />
+            </button>
           </div>
         </div>
         <div>
@@ -45,4 +51,10 @@ class Post extends Component {
   }
 }
 
-export default Post
+function mapDispatchToProps (dispatch) {
+  return {
+    sendPostVote: (id, option) => dispatch(sendPostVote(id, option))
+  }
+}
+
+export default connect(null, mapDispatchToProps)(Post)

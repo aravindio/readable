@@ -1,7 +1,8 @@
 import {
   SET_POSTS,
   SET_DEFAULT_POSTS_SORT,
-  SORT_POSTS
+  SORT_POSTS,
+  VOTE_POST
 } from '../actions'
 
 export default function posts (state = {}, action) {
@@ -18,6 +19,21 @@ export default function posts (state = {}, action) {
       return {
         ...state,
         defaultSort: action.option
+      }
+    case VOTE_POST:
+      const { vId, vOption } = action
+      return {
+        ...state,
+        posts: [ ...state.posts ].map(p => {
+          if (p.id === vId) {
+            if (vOption === 'upVote') {
+              return { ...p, voteScore: p.voteScore + 1}
+            } else if (vOption === 'downVote') {
+              return { ...p, voteScore: p.voteScore - 1}
+            }
+          }
+          return p
+        })
       }
     default:
       return state

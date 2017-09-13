@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import TimeAgo from 'react-timeago'
+import { sendPostVote } from '../actions'
 import Up from 'react-icons/lib/go/arrow-up'
 import Down from 'react-icons/lib/go/arrow-down'
 import User from 'react-icons/lib/fa/user'
@@ -10,17 +12,21 @@ import Trash from 'react-icons/lib/fa/trash'
 
 class FullPost extends Component {
   render() {
-    const { post } = this.props
+    const { post, sendPostVote } = this.props
     if (post)
       return (
         <div className='full-post'>
           <div className='vote-score'>
             <div>
-              <button><Up /></button>
+              <button onClick={e => sendPostVote(post.id, 'upVote')}>
+                <Up />
+              </button>
             </div>
             <div>{post.voteScore}</div>
             <div>
-              <button><Down /></button>
+              <button onClick={e => sendPostVote(post.id, 'downVote')}>
+                <Down />
+              </button>
             </div>
           </div>
           <div>
@@ -42,4 +48,10 @@ class FullPost extends Component {
   }
 }
 
-export default FullPost
+function mapDispatchToProps (dispatch) {
+  return {
+    sendPostVote: (id, option) => dispatch(sendPostVote(id, option))
+  }
+}
+
+export default connect(null, mapDispatchToProps)(FullPost)
