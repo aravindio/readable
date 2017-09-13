@@ -2,6 +2,7 @@ import * as API from '../utils/api'
 import { fetchComments } from './comments'
 
 export const SET_POSTS = 'SET_POSTS'
+export const SET_DEFAULT_POSTS_SORT = 'SET_DEFAULT_POSTS_SORT'
 
 export const setPosts = posts => ({
   type: SET_POSTS,
@@ -13,6 +14,11 @@ export const fetchPostsAndComments = () => dispatch => (
     .getPosts()
     .then(posts => {
       dispatch(setPosts(posts))
+      dispatch(setDefaultPostsSort())
       dispatch(fetchComments(posts.map(p => p.id)))
     })
 )
+
+export const setDefaultPostsSort = () => ({
+  type: SET_DEFAULT_POSTS_SORT
+})

@@ -5,6 +5,7 @@ import {
 
 import {
   SET_POSTS,
+  SET_DEFAULT_POSTS_SORT,
   fetchPostsAndComments
 } from './posts'
 
@@ -16,6 +17,7 @@ import {
 export {
   SET_CATEGORIES,
   SET_POSTS,
+  SET_DEFAULT_POSTS_SORT,
   SET_COMMENTS,
   fetchCategories,
   fetchPostsAndComments,
