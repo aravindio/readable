@@ -8,9 +8,11 @@ import {
   SET_DEFAULT_POSTS_SORT,
   SORT_POSTS,
   VOTE_POST,
+  NEW_POST,
   fetchPostsAndComments,
   sortPosts,
-  sendPostVote
+  sendPostVote,
+  submitPost
 } from './posts'
 
 import {
@@ -29,6 +31,7 @@ export {
   SET_DEFAULT_POSTS_SORT,
   SORT_POSTS,
   VOTE_POST,
+  NEW_POST,
   SET_COMMENTS,
   SET_DEFAULT_COMMENTS_SORT,
   SORT_COMMENTS,
@@ -37,6 +40,7 @@ export {
   fetchPostsAndComments,
   sortPosts,
   sendPostVote,
+  submitPost,
   fetchComments,
   sortComments,
   sendCommentVote

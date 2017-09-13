@@ -5,6 +5,7 @@ export const SET_POSTS = 'SET_POSTS'
 export const SET_DEFAULT_POSTS_SORT = 'SET_DEFAULT_POSTS_SORT'
 export const SORT_POSTS = 'SORT_POSTS'
 export const VOTE_POST = 'VOTE_POST'
+export const NEW_POST = 'NEW_POST'
 
 export const setPosts = posts => ({
   type: SET_POSTS,
@@ -41,4 +42,18 @@ export const sendPostVote = (id, option) => dispatch => (
   API
     .votePost(id, option)
     .then(post => dispatch(votePost(id, option)))
+)
+
+export const newPost = post => ({
+  type: NEW_POST,
+  post
+})
+
+export const submitPost = data => dispatch => (
+  API
+    .setPost(data)
+    .then(post => {
+      dispatch(newPost(post))
+      dispatch(fetchComments([ post.id ]))
+    })
 )

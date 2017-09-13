@@ -2,7 +2,8 @@ import {
   SET_POSTS,
   SET_DEFAULT_POSTS_SORT,
   SORT_POSTS,
-  VOTE_POST
+  VOTE_POST,
+  NEW_POST
 } from '../actions'
 
 export default function posts (state = {}, action) {
@@ -34,6 +35,12 @@ export default function posts (state = {}, action) {
           }
           return p
         })
+      }
+    case NEW_POST:
+      const { post } = action
+      return {
+        ...state,
+        posts: [ ...state.posts ].concat([ post ])
       }
     default:
       return state
