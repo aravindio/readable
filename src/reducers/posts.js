@@ -6,7 +6,8 @@ import {
   NEW_POST,
   SET_POST_TO_EDIT,
   CLEAR_POST_TO_EDIT,
-  UPDATE_POST
+  UPDATE_POST,
+  REMOVE_POST
 } from '../actions'
 
 export default function posts (state = {}, action) {
@@ -55,6 +56,12 @@ export default function posts (state = {}, action) {
       return {
         ...state,
         posts: [ ...state.posts ].map(p => p.id === uPost.id ? uPost : p )
+      }
+    case REMOVE_POST:
+      const { rPostId } = action
+      return {
+        ...state,
+        posts: [ ...state.posts ].filter(p => p.id !== rPostId)
       }
     default:
       return state

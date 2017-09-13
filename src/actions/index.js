@@ -12,13 +12,15 @@ import {
   SET_POST_TO_EDIT,
   CLEAR_POST_TO_EDIT,
   UPDATE_POST,
+  REMOVE_POST,
   fetchPostsAndComments,
   sortPosts,
   sendPostVote,
   submitPost,
   fetchPost,
   clearPostToEdit,
-  editPost
+  editPost,
+  deletePost
 } from './posts'
 
 import {
@@ -41,6 +43,7 @@ export {
   SET_POST_TO_EDIT,
   CLEAR_POST_TO_EDIT,
   UPDATE_POST,
+  REMOVE_POST,
   SET_COMMENTS,
   SET_DEFAULT_COMMENTS_SORT,
   SORT_COMMENTS,
@@ -53,6 +56,7 @@ export {
   fetchPost,
   clearPostToEdit,
   editPost,
+  deletePost,
   fetchComments,
   sortComments,
   sendCommentVote

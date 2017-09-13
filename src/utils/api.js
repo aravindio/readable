@@ -70,3 +70,13 @@ export const editPost = (id, post) =>
     body: JSON.stringify({ ...post })
   })
     .then(res => res.json())
+
+export const deletePost = id =>
+  fetch(`${api}/posts/${id}`, {
+    method: 'DELETE',
+    headers: {
+      ...headers,
+      'Content-Type': 'application/json'
+    }
+  })
+    .catch(err => console.log("Couldn't delete. Error details:", err))

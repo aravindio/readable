@@ -5,6 +5,7 @@ import Header from './header'
 import PostsList from './posts-list'
 import PostView from './post-view'
 import PostForm from './post-form'
+import Delete from './delete'
 import { fetchCategories, fetchPostsAndComments } from '../actions'
 
 class App extends Component {
@@ -22,6 +23,7 @@ class App extends Component {
           <Route exact path='/' component={PostsList} />
           <Route exact path='/new/post' component={PostForm} />
           <Route exact path='/edit/post/:id' component={PostForm} />
+          <Route exact path='/delete/post/:id' component={Delete} />
           <Route exact path='/:category/:id' component={PostView} />
         </Switch>
       </div>

@@ -9,6 +9,7 @@ export const NEW_POST = 'NEW_POST'
 export const SET_POST_TO_EDIT = 'SET_POST_TO_EDIT'
 export const CLEAR_POST_TO_EDIT = 'CLEAR_POST_TO_EDIT'
 export const UPDATE_POST = 'UPDATE_POST'
+export const REMOVE_POST = 'REMOVE_POST'
 
 export const setPosts = posts => ({
   type: SET_POSTS,
@@ -85,4 +86,15 @@ export const editPost = (id, data) => dispatch => (
   API
     .editPost(id, data)
     .then(post => dispatch(updatePost(post)))
+)
+
+export const removePost = rPostId => ({
+  type: REMOVE_POST,
+  rPostId
+})
+
+export const deletePost = id => dispatch => (
+  API
+    .deletePost(id)
+    .then(() => dispatch(removePost(id)))
 )
