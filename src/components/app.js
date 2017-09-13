@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
+import { Navbar, Nav, NavItem } from 'react-bootstrap'
+import { LinkContainer } from 'react-router-bootstrap'
 import { fetchCategories, fetchPosts, fetchComments } from '../actions'
 
 class App extends Component {
@@ -19,16 +22,38 @@ class App extends Component {
   }
 
   render() {
+    const { categories } = this.props
     return (
       <div className='app'>
-        <h1 className='text-center'>Yo</h1>
+        <Navbar inverse collapseOnSelect={true}>
+          <Navbar.Header>
+            <Navbar.Brand>
+              <Link to='/'>Readable</Link>
+            </Navbar.Brand>
+            {categories && <Navbar.Toggle />}
+          </Navbar.Header>
+          {categories && (
+            <Navbar.Collapse>
+              <Nav pullRight>
+                {categories.map(c => (
+                  <LinkContainer exact key={c.path} to={`/${c.path}`}>
+                    <NavItem>{c.name}</NavItem>
+                  </LinkContainer>
+                ))}
+              </Nav>
+            </Navbar.Collapse>
+          )}
+        </Navbar>
       </div>
     )
   }
 }
 
-function mapStateToProps ({ posts }) {
-  return { posts: posts.posts }
+function mapStateToProps ({ posts, categories }) {
+  return {
+    posts: posts.posts,
+    categories
+  }
 }
 
 function mapDispatchToProps (dispatch) {
