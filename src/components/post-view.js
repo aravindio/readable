@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
+import FullPost from './full-post'
 import Up from 'react-icons/lib/go/arrow-up'
 import Down from 'react-icons/lib/go/arrow-down'
 import User from 'react-icons/lib/fa/user'
@@ -13,29 +14,7 @@ class PostView extends Component {
     const { post, comments } = this.props
     return (
       <div className='container'>
-        <div className='full-post'>
-          <div className='vote-score'>
-            <div>
-              <button><Up /></button>
-            </div>
-            <div>{post && post.voteScore}</div>
-            <div>
-              <button><Down /></button>
-            </div>
-          </div>
-          <div>
-            <h3><b>{post && post.title}</b></h3>
-            <p>{post && post.body}</p>
-          </div>
-          <span className='meta'>
-            <User /> <b>{post && post.author}</b>{' | '}
-            <Clock /> <span>{post && post.timestamp}</span>{' | '}
-            <Pencil />&nbsp;
-            <Link to={`/edit/post/${post && post.id}`}>Edit</Link>{' | '}
-            <Trash />&nbsp;
-            <Link to={`/delete/post/${post && post.id}`}>Delete</Link>
-          </span>
-        </div>
+        <FullPost post={post} />
         <div className='comments-list'>
           <h5>
             <b>
