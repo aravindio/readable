@@ -3,7 +3,10 @@ import {
   SET_DEFAULT_POSTS_SORT,
   SORT_POSTS,
   VOTE_POST,
-  NEW_POST
+  NEW_POST,
+  SET_POST_TO_EDIT,
+  CLEAR_POST_TO_EDIT,
+  UPDATE_POST
 } from '../actions'
 
 export default function posts (state = {}, action) {
@@ -41,6 +44,17 @@ export default function posts (state = {}, action) {
       return {
         ...state,
         posts: [ ...state.posts ].concat([ post ])
+      }
+    case SET_POST_TO_EDIT:
+      const postToEdit = action.post
+      return { ...state, postToEdit }
+    case CLEAR_POST_TO_EDIT:
+      return { ...state, postToEdit: null }
+    case UPDATE_POST:
+      const { uPost } = action
+      return {
+        ...state,
+        posts: [ ...state.posts ].map(p => p.id === uPost.id ? uPost : p )
       }
     default:
       return state

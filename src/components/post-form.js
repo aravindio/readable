@@ -2,58 +2,113 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import serializeForm from 'form-serialize'
 import uuid from 'uuid'
-import { submitPost } from '../actions'
+import { submitPost, fetchPost, editPost, clearPostToEdit } from '../actions'
 
 class PostForm extends Component {
+  componentWillMount() {
+    const { fetchPost, match } = this.props
+    const { id } = match.params
+    if (this.isEditMode() && id)
+      fetchPost(id)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { postToEdit } = nextProps
+    if (postToEdit) {
+      this.titleInput.value = postToEdit.title
+      this.bodyInput.value = postToEdit.body
+    }
+  }
+
+  componentWillUnmount() {
+    this.props.clearPostToEdit()
+  }
+
+  isEditMode = () => {
+    const { pathname } = this.props.location
+    const regEx = /\/(.*?)\//ig
+    const type = pathname.match(regEx)[0].slice(1, -1)
+    return type === 'edit'
+  }
+
+  getIdAndTimestamp = () => ({
+    id: uuid().replace(/-/g, '').slice(0, 20),
+    timestamp: Date.now()
+  })
+
+  setDefaults = formData => {
+    formData.title = formData.title || 'Empty title'
+    formData.body = formData.body || 'Empty post'
+    return formData
+  }
+
   onFormSubmit = e => {
     e.preventDefault()
-
-    const { submitPost, history } = this.props
+    const { submitPost, history, postToEdit, editPost } = this.props
     const formData = serializeForm(e.target, { hash: true })
-    formData.id = uuid().replace(/-/g, '').slice(0, 20)
-    formData.timestamp = Date.now()
-    formData.title = formData.title || 'Empty title'
-    formData.author = formData.author || 'nobody'
-    formData.body = formData.body || 'Empty post'
-    submitPost(formData)
-    history.push('/')
+    if (!this.isEditMode()) {
+      formData.author = formData.author || 'nobody'
+      submitPost(
+        Object.assign(
+          formData,
+          this.setDefaults(formData),
+          this.getIdAndTimestamp()
+        )
+      )
+      history.push('/')
+    } else {
+      editPost(postToEdit.id, Object.assign(
+        formData,
+        this.setDefaults(formData)
+      ))
+      history.goBack()
+    }
   }
 
   render() {
     const { categories } = this.props
+    const editMode = this.isEditMode()
     return (
       <div className='container'>
         <div className='inner-container'>
-          <h3><b>Add post</b></h3>
+          <h3>
+            <b>{!editMode ? 'Add post' : 'Edit post' }</b>
+          </h3>
           <form onSubmit={this.onFormSubmit}>
             <label>Title</label>
             <input
               className='form-control'
               type='text'
               name='title'
+              ref={i => this.titleInput = i}
             />
-            <label>Author</label>
-            <input
-              className='form-control'
-              type='text'
-              name='author'
-            />
-            <label>Category</label><br/>
-            <select name='category'>
-              {categories && categories.map(c => (
-                <option
-                  key={c.path}
-                  value={c.path}
-                >
-                  {c.name}
-                </option>
-              ))}
-            </select>
-            <br/>
+            {!editMode && (
+              <div>
+                <label>Author</label>
+                <input
+                  className='form-control'
+                  type='text'
+                  name='author'
+                />
+                <label>Category</label><br/>
+                <select name='category'>
+                  {categories && categories.map(c => (
+                    <option
+                      key={c.path}
+                      value={c.path}
+                    >
+                      {c.name}
+                    </option>
+                  ))}
+                </select>
+                <br/>
+              </div>
+            )}
             <label>Post</label>
             <textarea
               className='form-control'
               name='body'
+              ref={t => this.bodyInput = t}
             >
             </textarea>
             <button className='btn btn-primary' type='submit'>
@@ -66,13 +121,17 @@ class PostForm extends Component {
   }
 }
 
-function mapStateToProps ({ categories }) {
-  return { categories }
+function mapStateToProps ({ posts, categories }) {
+  const postToEdit = posts.postToEdit
+  return { categories, postToEdit }
 }
 
 function mapDispatchToProps (dispatch) {
   return {
-    submitPost: data => dispatch(submitPost(data))
+    submitPost: data => dispatch(submitPost(data)),
+    fetchPost: id => dispatch(fetchPost(id)),
+    editPost: (id, data) => dispatch(editPost(id, data)),
+    clearPostToEdit: () => dispatch(clearPostToEdit())
   }
 }
 

@@ -9,10 +9,16 @@ import {
   SORT_POSTS,
   VOTE_POST,
   NEW_POST,
+  SET_POST_TO_EDIT,
+  CLEAR_POST_TO_EDIT,
+  UPDATE_POST,
   fetchPostsAndComments,
   sortPosts,
   sendPostVote,
-  submitPost
+  submitPost,
+  fetchPost,
+  clearPostToEdit,
+  editPost
 } from './posts'
 
 import {
@@ -32,6 +38,9 @@ export {
   SORT_POSTS,
   VOTE_POST,
   NEW_POST,
+  SET_POST_TO_EDIT,
+  CLEAR_POST_TO_EDIT,
+  UPDATE_POST,
   SET_COMMENTS,
   SET_DEFAULT_COMMENTS_SORT,
   SORT_COMMENTS,
@@ -41,6 +50,9 @@ export {
   sortPosts,
   sendPostVote,
   submitPost,
+  fetchPost,
+  clearPostToEdit,
+  editPost,
   fetchComments,
   sortComments,
   sendCommentVote
