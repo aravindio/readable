@@ -3,6 +3,7 @@ import { fetchComments, setDefaultCommentsSort } from './comments'
 
 export const SET_POSTS = 'SET_POSTS'
 export const SET_DEFAULT_POSTS_SORT = 'SET_DEFAULT_POSTS_SORT'
+export const SORT_POSTS = 'SORT_POSTS'
 
 export const setPosts = posts => ({
   type: SET_POSTS,
@@ -22,4 +23,9 @@ export const fetchPostsAndComments = () => dispatch => (
 
 export const setDefaultPostsSort = () => ({
   type: SET_DEFAULT_POSTS_SORT
+})
+
+export const sortPosts = option => ({
+  type: SORT_POSTS,
+  option
 })

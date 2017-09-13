@@ -3,10 +3,11 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import sortBy from 'sort-by'
 import Post from './post'
+import { sortPosts } from '../actions'
 
 class PostsList extends Component {
   render() {
-    const { comments, defaultSort } = this.props
+    const { comments, defaultSort, sortPosts } = this.props
     let { posts } = this.props
 
     if (posts) {
@@ -21,7 +22,10 @@ class PostsList extends Component {
             </Link>
             <span className='sort-control'>
               <label>Sort by:</label>
-              <select>
+              <select
+                value={defaultSort}
+                onChange={e => sortPosts(e.target.value)}
+              >
                 <option value='voteScore'>voteScore</option>
                 <option value='timestamp'>timestamp</option>
               </select>
@@ -56,4 +60,10 @@ function mapStateToProps ({ posts, comments }) {
   }
 }
 
-export default connect(mapStateToProps)(PostsList)
+function mapDispatchToProps (dispatch) {
+  return {
+    sortPosts: option => dispatch(sortPosts(option))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PostsList)

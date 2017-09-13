@@ -1,6 +1,7 @@
 import {
   SET_POSTS,
-  SET_DEFAULT_POSTS_SORT
+  SET_DEFAULT_POSTS_SORT,
+  SORT_POSTS
 } from '../actions'
 
 export default function posts (state = {}, action) {
@@ -13,6 +14,11 @@ export default function posts (state = {}, action) {
       }
     case SET_DEFAULT_POSTS_SORT:
       return { ...state, defaultSort: 'voteScore' }
+    case SORT_POSTS:
+      return {
+        ...state,
+        defaultSort: action.option
+      }
     default:
       return state
   }
