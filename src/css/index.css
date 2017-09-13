@@ -5,7 +5,106 @@
 body {
   background-color: #eee;
 }
+a {
+  color: inherit;
+}
+a:hover,
+a:active,
+a:focus {
+  text-decoration: none;
+  color: inherit;
+}
 .container {
   width: 100%;
   max-width: 800px;
+}
+.posts-list ul {
+  list-style-type: none;
+  padding: 0;
+  background-color: #fff;
+}
+.btn {
+  margin: 0 5px 10px 0;
+}
+.btn-primary {
+  background-color: #202020;
+  border: 1px solid #202020;
+  color: #fff;
+}
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary:active:focus,
+.btn-primary:focus {
+  background-color: #202020 !important;
+  border: 1px solid #202020 !important;
+  color: #fff;
+}
+.sort-control {
+  float: right;
+}
+.sort-control label {
+  padding-right: 5px;
+}
+select {
+  background-color: #202020;
+  color: #fff;
+  padding: 7px 10px;
+  border: none;
+  font-size: 12px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+select[disabled] {
+  cursor: not-allowed;
+}
+select:hover,
+select:active,
+select:focus {
+  border: none;
+}
+.post {
+  padding: 20px 30px 20px 60px;
+  border-bottom: 1px solid #eee;
+  position: relative;
+  line-height: 20px;
+  background-color: #fff;
+}
+.empty-list {
+  padding: 20px 30px;
+  text-align: center;
+}
+.vote-score {
+  font-size: 1.1em;
+  font-weight: 700;
+  position: absolute;
+  top: 20px;
+  left: 0;
+  width: 60px;
+  text-align: center;
+}
+.vote-score div {
+  text-align: center;
+}
+.vote-score button {
+  padding: 0;
+  margin: 0;
+  background-color: transparent;
+  border: none;
+}
+.post small {
+  font-size: 0.8em;
+  vertical-align: middle;
+}
+.meta {
+  font-size: .85em;
+  color: #828282;
+}
+.meta svg {
+  margin-top: -2px;
+}
+.meta button {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
 }
