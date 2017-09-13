@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import TimeAgo from 'react-timeago'
 import Up from 'react-icons/lib/go/arrow-up'
 import Down from 'react-icons/lib/go/arrow-down'
 import User from 'react-icons/lib/fa/user'
@@ -28,7 +29,7 @@ class FullPost extends Component {
           </div>
           <span className='meta'>
             <User /> <b>{post.author}</b>{' | '}
-            <Clock /> <span>{post.timestamp}</span>{' | '}
+            <Clock /> <TimeAgo date={post.timestamp} />{' | '}
             <Pencil />&nbsp;
             <Link to={`/edit/post/${post.id}`}>Edit</Link>{' | '}
             <Trash />&nbsp;

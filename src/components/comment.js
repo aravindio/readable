@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import TimeAgo from 'react-timeago'
 import Up from 'react-icons/lib/go/arrow-up'
 import Down from 'react-icons/lib/go/arrow-down'
 import User from 'react-icons/lib/fa/user'
@@ -23,7 +24,7 @@ class Comment extends Component {
         </div>
         <span className='meta'>
           <User /> <b>{comment.author}</b>{' | '}
-          <Clock /> <span>{comment.timestamp}</span>
+          <Clock /> <TimeAgo date={comment.timestamp} />
         </span>
         <div className='comment-body'>
           <p>{comment.body}</p>
