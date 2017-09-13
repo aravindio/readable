@@ -18,7 +18,13 @@ a:focus {
   width: 100%;
   max-width: 800px;
 }
-.posts-list ul {
+.inner-container {
+  background-color: #fff;
+  padding: 20px;
+  margin: 0 0 30px;
+}
+.posts-list ul,
+.comments-list ul {
   list-style-type: none;
   padding: 0;
   background-color: #fff;
@@ -62,7 +68,9 @@ select:active,
 select:focus {
   border: none;
 }
-.post {
+.post,
+.full-post,
+.comment {
   padding: 20px 30px 20px 60px;
   border-bottom: 1px solid #eee;
   position: relative;
@@ -107,4 +115,29 @@ select:focus {
   border: none;
   padding: 0;
   margin: 0;
+}
+.full-post h3 {
+  margin-top: 0;
+}
+.comments-list {
+  background-color: #fff;
+  margin-top: 10px;
+}
+.comments-list h5 {
+  padding: 10px 10px 10px 20px;
+  display: inline-block;
+}
+.comments-list .sort-control select {
+  margin: 12px 20px;
+  margin-left: 0;
+}
+.comment {
+  border: 0;
+  border-top: 1px solid #eee;
+}
+.comment-body {
+  margin: 5px 0 -5px;
+}
+form input, form textarea {
+  margin-bottom: 10px;
 }
