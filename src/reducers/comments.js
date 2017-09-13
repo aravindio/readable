@@ -1,6 +1,7 @@
 import {
   SET_COMMENTS,
-  SET_DEFAULT_COMMENTS_SORT
+  SET_DEFAULT_COMMENTS_SORT,
+  SORT_COMMENTS
 } from '../actions'
 
 export default function comments (state = {}, action) {
@@ -16,6 +17,11 @@ export default function comments (state = {}, action) {
       }
     case SET_DEFAULT_COMMENTS_SORT:
       return { ...state, defaultSort: 'voteScore' }
+    case SORT_COMMENTS:
+      return {
+        ...state,
+        defaultSort: action.option
+      }
     default:
       return state
   }

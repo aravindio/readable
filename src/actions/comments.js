@@ -2,6 +2,7 @@ import * as API from '../utils/api'
 
 export const SET_COMMENTS = 'SET_COMMENTS'
 export const SET_DEFAULT_COMMENTS_SORT = 'SET_DEFAULT_COMMENTS_SORT'
+export const SORT_COMMENTS = 'SORT_COMMENTS'
 
 export const setComments = (postId, comments) => ({
   type: SET_COMMENTS,
@@ -19,4 +20,9 @@ export const fetchComments = postIds => dispatch => (
 
 export const setDefaultCommentsSort = () => ({
   type: SET_DEFAULT_COMMENTS_SORT
+})
+
+export const sortComments = option => ({
+  type: SORT_COMMENTS,
+  option
 })

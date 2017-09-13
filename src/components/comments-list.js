@@ -2,10 +2,11 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import sortBy from 'sort-by'
 import Comment from './comment'
+import { sortComments } from '../actions'
 
 class CommentsList extends Component {
   render() {
-    const { defaultSort } = this.props
+    const { defaultSort, sortComments } = this.props
     let { comments } = this.props
     if (comments) {
       const commentsCount = `${comments.length} comment` +
@@ -19,7 +20,10 @@ class CommentsList extends Component {
           </h5>
           <span className='sort-control'>
             <label>Sort by:</label>
-            <select>
+            <select
+              value={defaultSort}
+              onChange={e => sortComments(e.target.value)}
+            >
               <option value='voteScore'>voteScore</option>
               <option value='timestamp'>timestamp</option>
             </select>
@@ -48,4 +52,10 @@ function mapStateToProps ({ comments }) {
   }
 }
 
-export default connect(mapStateToProps)(CommentsList)
+function mapDispatchToProps (dispatch) {
+  return {
+    sortComments: option => dispatch(sortComments(option))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CommentsList)

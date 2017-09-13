@@ -14,7 +14,9 @@ import {
 import {
   SET_COMMENTS,
   SET_DEFAULT_COMMENTS_SORT,
-  fetchComments
+  SORT_COMMENTS,
+  fetchComments,
+  sortComments
 } from './comments'
 
 export {
@@ -24,8 +26,10 @@ export {
   SORT_POSTS,
   SET_COMMENTS,
   SET_DEFAULT_COMMENTS_SORT,
+  SORT_COMMENTS,
   fetchCategories,
   fetchPostsAndComments,
   sortPosts,
-  fetchComments
+  fetchComments,
+  sortComments
 }
