@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import TimeAgo from 'react-timeago'
-import { sendCommentVote } from '../actions'
+import { sendCommentVote, fetchComment } from '../actions'
 import Up from 'react-icons/lib/go/arrow-up'
 import Down from 'react-icons/lib/go/arrow-down'
 import User from 'react-icons/lib/fa/user'
@@ -11,6 +11,12 @@ import Pencil from 'react-icons/lib/fa/pencil'
 import Trash from 'react-icons/lib/fa/trash'
 
 class Comment extends Component {
+  onEditClick = id => {
+    const { fetchComment, scrollToBottom } = this.props
+    fetchComment(id)
+    scrollToBottom()
+  }
+
   render() {
     const { comment, sendCommentVote } = this.props
     return (
@@ -36,8 +42,10 @@ class Comment extends Component {
           <p>{comment.body}</p>
         </div>
         <span className='meta'>
-          <Pencil />{' '}
-          <button>Edit</button>{' | '}
+          <Pencil />&nbsp;
+          <button onClick={() => this.onEditClick(comment.id)}>
+            Edit
+          </button>{' | '}
           <Trash />&nbsp;
           <Link to={`/delete/comment/${comment.id}`}>Delete</Link>
         </span>
@@ -48,7 +56,8 @@ class Comment extends Component {
 
 function mapDispatchToProps (dispatch) {
   return {
-    sendCommentVote: (id, option) => dispatch(sendCommentVote(id, option))
+    sendCommentVote: (id, option) => dispatch(sendCommentVote(id, option)),
+    fetchComment: id => dispatch(fetchComment(id))
   }
 }
 

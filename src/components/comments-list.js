@@ -6,7 +6,7 @@ import { sortComments } from '../actions'
 
 class CommentsList extends Component {
   render() {
-    const { defaultSort, sortComments } = this.props
+    const { defaultSort, sortComments, scrollToBottom } = this.props
     let { comments } = this.props
     if (comments) {
       const commentsCount = `${comments.length} comment` +
@@ -32,7 +32,11 @@ class CommentsList extends Component {
           <ul>
             {comments.length > 0
               ? comments.map(comment => (
-                  <Comment key={comment.id} comment={comment}/>
+                  <Comment
+                    key={comment.id}
+                    comment={comment}
+                    scrollToBottom={scrollToBottom}
+                  />
                 ))
               : <li className='comment empty-list'>
                   <b>Oops! No comments available for this post.</b>

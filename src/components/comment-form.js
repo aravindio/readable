@@ -2,42 +2,84 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import serializeForm from 'form-serialize'
 import uuid from 'uuid'
-import { submitComment } from '../actions'
+import { submitComment, editComment, clearCommentToEdit } from '../actions'
 
 class CommentForm extends Component {
-  getIdAndTimestamp = () => ({
-    id: uuid().replace(/-/g, '').slice(0, 20),
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.commentToEdit)
+      this.bodyInput.value = nextProps.commentToEdit.body
+  }
+
+  getIdAndTimestamp = id => ({
+    id: id || uuid().replace(/-/g, '').slice(0, 20),
     timestamp: Date.now()
   })
 
-  clearInputs = () => {
-    this.nameInput.value = ''
-    this.bodyInput.value = ''
+  clearInputs = (clearName, clearBody) => {
+    if (clearName)
+      this.nameInput.value = ''
+    if (clearBody)
+      this.bodyInput.value = ''
+  }
+
+  onCancelClick = e => {
+    e.preventDefault()
+    this.clearInputs(false, true)
+    this.props.clearCommentToEdit()
+  }
+
+  componentWillUnmount() {
+    this.props.clearCommentToEdit()
   }
 
   onFormSubmit = e => {
     e.preventDefault()
-    const { submitComment, postId } = this.props
+    const {
+      submitComment,
+      commentToEdit,
+      editComment,
+      clearCommentToEdit,
+      postId
+    } = this.props
     const formData = serializeForm(e.target, { hash: true })
-    formData.author = formData.author || 'no-author'
-    formData.body = formData.body || 'Empty comment'
-    formData.parentId = postId
-    submitComment(Object.assign(formData, this.getIdAndTimestamp()))
-    this.clearInputs()
+    if (!commentToEdit) {
+      formData.author = formData.author || 'no-author'
+      formData.body = formData.body || 'Empty comment'
+      formData.parentId = postId
+      submitComment(Object.assign(formData, this.getIdAndTimestamp()))
+      this.clearInputs(true, true)
+    } else {
+      const id = commentToEdit.id
+      formData.body = formData.body || 'Empty comment'
+      formData.timestamp = Date.now()
+      editComment(id, Object.assign(
+        formData,
+        this.getIdAndTimestamp(id)
+      ))
+      this.clearInputs(false, true)
+      clearCommentToEdit()
+    }
   }
 
   render() {
+    const { commentToEdit } = this.props
     return (
       <div className='inner-container'>
-        <h4><b>Add comment</b></h4>
+        <h4>
+          <b>{!commentToEdit ? 'Add comment' : 'Edit comment' }</b>
+        </h4>
         <form onSubmit={this.onFormSubmit}>
-          <label>Name</label>
-          <input
-            className='form-control'
-            type='text'
-            name='author'
-            ref={i => this.nameInput = i}
-          />
+          {!commentToEdit && (
+            <div>
+              <label>Name</label>
+              <input
+                className='form-control'
+                type='text'
+                name='author'
+                ref={i => this.nameInput = i}
+              />
+            </div>
+          )}
           <label>Comment</label>
           <textarea
             className='form-control'
@@ -46,18 +88,31 @@ class CommentForm extends Component {
           >
           </textarea>
           <button className='btn btn-primary' type='submit'>
-            Submit
+            {!commentToEdit ? 'Submit' : 'Update' }
           </button>
+          {commentToEdit && (
+            <button className='btn btn-default' onClick={this.onCancelClick}>
+              Cancel
+            </button>
+          )}
         </form>
       </div>
     )
   }
 }
 
-function mapDispatchToProps (dispatch) {
+function mapStateToProps ({ comments }) {
   return {
-    submitComment: data => dispatch(submitComment(data))
+    commentToEdit: comments.commentToEdit
   }
 }
 
-export default connect(null, mapDispatchToProps)(CommentForm)
+function mapDispatchToProps (dispatch) {
+  return {
+    submitComment: data => dispatch(submitComment(data)),
+    editComment: (id, comment) => dispatch(editComment(id, comment)),
+    clearCommentToEdit: () => dispatch(clearCommentToEdit())
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CommentForm)

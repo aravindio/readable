@@ -3,7 +3,10 @@ import {
   SET_DEFAULT_COMMENTS_SORT,
   SORT_COMMENTS,
   VOTE_COMMENT,
-  NEW_COMMENT
+  NEW_COMMENT,
+  SET_COMMENT_TO_EDIT,
+  CLEAR_COMMENT_TO_EDIT,
+  UPDATE_COMMENT
 } from '../actions'
 
 export default function comments (state = {}, action) {
@@ -49,6 +52,22 @@ export default function comments (state = {}, action) {
         comments: {
           ...state.comments,
           [nParentId]: [ ...state.comments[nParentId] ].concat([ nComment ])
+        }
+      }
+    case SET_COMMENT_TO_EDIT:
+      const { comment } = action
+      return { ...state, commentToEdit: comment }
+    case CLEAR_COMMENT_TO_EDIT:
+      return { ...state, commentToEdit: null }
+    case UPDATE_COMMENT:
+      const { uParentId, uComment } = action
+      return {
+        ...state,
+        comments: {
+          ...state.comments,
+          [uParentId]: [ ...state.comments[uParentId] ].map(c =>
+            c.id !== uComment.id ? c : uComment
+          )
         }
       }
     default:
