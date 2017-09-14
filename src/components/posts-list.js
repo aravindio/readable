@@ -7,17 +7,23 @@ import { sortPosts } from '../actions'
 
 class PostsList extends Component {
   render() {
-    const { comments, defaultSort, sortPosts } = this.props
+    const { comments, defaultSort, sortPosts, match } = this.props
+    const { category } = match.params
     let { posts } = this.props
 
     if (posts) {
+      if (category)
+        posts = posts.filter(p => p.category === category)
       if (defaultSort)
         posts = posts.sort(sortBy(`-${defaultSort}`))
 
       return (
         <div className='container'>
           <div className='posts-list'>
-            <Link to='/new/post' className='btn btn-primary btn-sm'>
+            <Link
+              to={`${category ? `/new/post/${category}` : '/new/post' }`}
+              className='btn btn-primary btn-sm'
+            >
               Add new post
             </Link>
             <span className='sort-control'>

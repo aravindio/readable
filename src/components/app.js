@@ -24,6 +24,7 @@ class App extends Component {
           <Route exact path='/new/post' component={PostForm} />
           <Route exact path='/edit/post/:id' component={PostForm} />
           <Route exact path='/delete/:type/:id' component={Delete} />
+          <Route exact path='/:category' component={PostsList} />
           <Route exact path='/:category/:id' component={PostView} />
         </Switch>
       </div>
