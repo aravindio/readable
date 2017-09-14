@@ -32,6 +32,7 @@ import {
   SET_COMMENT_TO_EDIT,
   CLEAR_COMMENT_TO_EDIT,
   UPDATE_COMMENT,
+  REMOVE_COMMENT,
   fetchComments,
   sortComments,
   sendCommentVote,
@@ -40,7 +41,8 @@ import {
   fetchComment,
   clearCommentToEdit,
   updateComment,
-  editComment
+  editComment,
+  deleteComment
 } from './comments'
 
 export {
@@ -62,6 +64,7 @@ export {
   SET_COMMENT_TO_EDIT,
   CLEAR_COMMENT_TO_EDIT,
   UPDATE_COMMENT,
+  REMOVE_COMMENT,
   fetchCategories,
   fetchPostsAndComments,
   sortPosts,
@@ -79,5 +82,6 @@ export {
   fetchComment,
   clearCommentToEdit,
   updateComment,
-  editComment
+  editComment,
+  deleteComment
 }

@@ -6,7 +6,8 @@ import {
   NEW_COMMENT,
   SET_COMMENT_TO_EDIT,
   CLEAR_COMMENT_TO_EDIT,
-  UPDATE_COMMENT
+  UPDATE_COMMENT,
+  REMOVE_COMMENT
 } from '../actions'
 
 export default function comments (state = {}, action) {
@@ -67,6 +68,17 @@ export default function comments (state = {}, action) {
           ...state.comments,
           [uParentId]: [ ...state.comments[uParentId] ].map(c =>
             c.id !== uComment.id ? c : uComment
+          )
+        }
+      }
+    case REMOVE_COMMENT:
+      const { rCommentId, rParentId } = action
+      return {
+        ...state,
+        comments: {
+          ...state.comments,
+          [rParentId]: [ ...state.comments[rParentId] ].filter(c =>
+            c.id !== rCommentId
           )
         }
       }

@@ -106,3 +106,13 @@ export const editComment = (id, comment) =>
     body: JSON.stringify({ ...comment })
   })
     .then(res => res.json())
+
+export const deleteComment = id =>
+  fetch(`${api}/comments/${id}`, {
+    method: 'DELETE',
+    headers: {
+      ...headers,
+      'Content-Type': 'application/json'
+    }
+  })
+    .catch(err => console.log("Couldn't delete. Error details:", err))

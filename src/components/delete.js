@@ -1,24 +1,30 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { deletePost } from '../actions'
+import { deletePost, deleteComment } from '../actions'
 import Back from 'react-icons/lib/fa/angle-double-left'
 
 
 class Delete extends Component {
   onDeleteClick = id => {
-    const { deletePost, history } = this.props
-    deletePost(id)
-    history.push('/')
+    const { deletePost, deleteComment, history } = this.props
+    const { type } = this.props.match.params
+    if (type === 'post') {
+      deletePost(id)
+      history.push('/')
+    } else if (type === 'comment') {
+      deleteComment(id)
+      history.goBack()
+    }
   }
 
   render() {
     const { history, match } = this.props
-    const { id } = match.params
+    const { id, type } = match.params
     return (
       <div className='container'>
         <div className='text-center inner-container'>
           <h3>
-            <b>Are you sure you want to delete this post?</b>
+            <b>Are you sure you want to delete this {type}?</b>
           </h3>
           <button
             className='btn btn-default'
@@ -40,7 +46,8 @@ class Delete extends Component {
 
 function mapDispatchToProps (dispatch) {
   return {
-    deletePost: id => dispatch(deletePost(id))
+    deletePost: id => dispatch(deletePost(id)),
+    deleteComment: id => dispatch(deleteComment(id))
   }
 }
 

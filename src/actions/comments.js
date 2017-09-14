@@ -8,6 +8,7 @@ export const NEW_COMMENT = 'NEW_COMMENT'
 export const SET_COMMENT_TO_EDIT = 'SET_COMMENT_TO_EDIT'
 export const CLEAR_COMMENT_TO_EDIT = 'CLEAR_COMMENT_TO_EDIT'
 export const UPDATE_COMMENT = 'UPDATE_COMMENT'
+export const REMOVE_COMMENT = 'REMOVE_COMMENT'
 
 export const setComments = (postId, comments) => ({
   type: SET_COMMENTS,
@@ -82,4 +83,20 @@ export const editComment = (id, data) => dispatch => (
   API
     .editComment(id, data)
     .then(comment => dispatch(updateComment(comment.parentId, comment)))
+)
+
+export const removeComment = (rCommentId, rParentId) => ({
+  type: REMOVE_COMMENT,
+  rCommentId,
+  rParentId
+})
+
+export const deleteComment = id => dispatch => (
+  API
+    .getComment(id)
+    .then(comment => comment.parentId)
+    .then(parentId => {
+      API.deleteComment(id)
+        .then(() => dispatch(removeComment(id, parentId)))
+    })
 )
