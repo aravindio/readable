@@ -11,7 +11,7 @@ class PostView extends Component {
       <div className='container'>
         <FullPost post={post} />
         <CommentsList comments={comments} />
-        <CommentForm />
+        <CommentForm postId={post && post.id} />
       </div>
     )
   }

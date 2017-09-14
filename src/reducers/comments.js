@@ -2,7 +2,8 @@ import {
   SET_COMMENTS,
   SET_DEFAULT_COMMENTS_SORT,
   SORT_COMMENTS,
-  VOTE_COMMENT
+  VOTE_COMMENT,
+  NEW_COMMENT
 } from '../actions'
 
 export default function comments (state = {}, action) {
@@ -39,6 +40,15 @@ export default function comments (state = {}, action) {
             }
             return c
           })
+        }
+      }
+    case NEW_COMMENT:
+      const { nParentId, nComment } = action
+      return {
+        ...state,
+        comments: {
+          ...state.comments,
+          [nParentId]: [ ...state.comments[nParentId] ].concat([ nComment ])
         }
       }
     default:

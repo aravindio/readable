@@ -80,3 +80,14 @@ export const deletePost = id =>
     }
   })
     .catch(err => console.log("Couldn't delete. Error details:", err))
+
+export const setComment = comment =>
+  fetch(`${api}/comments`, {
+    method: 'POST',
+    headers: {
+      ...headers,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ ...comment })
+  })
+    .then(res => res.json())
