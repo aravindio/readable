@@ -21,7 +21,7 @@ class App extends Component {
         <Header categories={this.props.categories} />
         <Switch>
           <Route exact path='/' component={PostsList} />
-          <Route exact path='/new/post' component={PostForm} />
+          <Route exact path='/new/post/:category?' component={PostForm} />
           <Route exact path='/edit/post/:id' component={PostForm} />
           <Route exact path='/delete/:type/:id' component={Delete} />
           <Route exact path='/:category' component={PostsList} />

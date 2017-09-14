@@ -36,9 +36,21 @@ class PostForm extends Component {
     timestamp: Date.now()
   })
 
-  setDefaults = formData => {
+  categoryExists = () => {
+    const { category } = this.props.match.params
+    let { categories } = this.props
+    categories = categories.map(c => c.path)
+    return categories.indexOf(category) !== -1
+  }
+
+  setDefaults = (formData, edit) => {
     formData.title = formData.title || 'Empty title'
     formData.body = formData.body || 'Empty post'
+    if (this.categoryExists())
+      formData.category = this.props.match.params.category
+    else
+      if (!edit)
+        formData.category = 'react'
     return formData
   }
 
@@ -59,14 +71,15 @@ class PostForm extends Component {
     } else {
       editPost(postToEdit.id, Object.assign(
         formData,
-        this.setDefaults(formData)
+        this.setDefaults(formData, true)
       ))
       history.goBack()
     }
   }
 
   render() {
-    const { categories } = this.props
+    const { categories, match } = this.props
+    const { category } = match.params
     const editMode = this.isEditMode()
     return (
       <div className='container'>
@@ -90,18 +103,22 @@ class PostForm extends Component {
                   type='text'
                   name='author'
                 />
-                <label>Category</label><br/>
-                <select name='category'>
-                  {categories && categories.map(c => (
-                    <option
-                      key={c.path}
-                      value={c.path}
-                    >
-                      {c.name}
-                    </option>
-                  ))}
-                </select>
-                <br/>
+                {!category && (
+                  <div>
+                    <label>Category</label><br/>
+                    <select name='category'>
+                      {categories && categories.map(c => (
+                        <option
+                          key={c.path}
+                          value={c.path}
+                        >
+                          {c.name}
+                        </option>
+                      ))}
+                    </select>
+                    <br/>
+                  </div>
+                )}
               </div>
             )}
             <label>Post</label>
