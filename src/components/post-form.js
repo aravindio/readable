@@ -48,9 +48,6 @@ class PostForm extends Component {
     formData.body = formData.body || 'Empty post'
     if (this.categoryExists())
       formData.category = this.props.match.params.category
-    else
-      if (!edit)
-        formData.category = 'react'
     return formData
   }
 
