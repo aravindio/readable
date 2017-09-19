@@ -19,13 +19,13 @@ class Post extends Component {
       <li className='post'>
         <div className='vote-score'>
           <div>
-            <button onClick={e => sendPostVote(post.id, 'upVote')}>
+            <button onClick={() => sendPostVote(post.id, 'upVote')}>
               <Up />
             </button>
           </div>
           <div>{post.voteScore}</div>
           <div>
-            <button onClick={e => sendPostVote(post.id, 'downVote')}>
+            <button onClick={() => sendPostVote(post.id, 'downVote')}>
               <Down />
             </button>
           </div>
