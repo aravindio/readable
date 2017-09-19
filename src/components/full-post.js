@@ -18,13 +18,13 @@ class FullPost extends Component {
         <div className='full-post'>
           <div className='vote-score'>
             <div>
-              <button onClick={e => sendPostVote(post.id, 'upVote')}>
+              <button onClick={() => sendPostVote(post.id, 'upVote')}>
                 <Up />
               </button>
             </div>
             <div>{post.voteScore}</div>
             <div>
-              <button onClick={e => sendPostVote(post.id, 'downVote')}>
+              <button onClick={() => sendPostVote(post.id, 'downVote')}>
                 <Down />
               </button>
             </div>
@@ -43,8 +43,7 @@ class FullPost extends Component {
           </span>
         </div>
       )
-    else
-      return null
+    return null
   }
 }
 
