@@ -4,9 +4,25 @@ An app that allows you to post content & comments, vote on them, edit and delete
 
 ## Installation
 
-Download the repo, unzip it, ```cd``` into it and run the following command
+To run this app, you need to have two servers running at the the same time.
+
+- The back-end API server
+- React development server
+
+First, download the repo and unzip it.
+
+**To run the back-end API server:**
+
+Open a terminal, ```cd``` into the root directory of this project and run the following command
 ```sh
-npm install && npm start
+cd back-end && npm install && node server
+```
+
+**To run the React development server:**
+
+Open a new terminal (without closing the previous one), ```cd``` into the root directory of this project and run the following command
+```sh
+cd front-end && npm install && npm start
 ```
 
 ## Usage
