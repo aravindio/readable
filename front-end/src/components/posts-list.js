@@ -54,8 +54,7 @@ class PostsList extends Component {
         </div>
       )
     }
-    else
-      return null
+    return null
   }
 }
 
