@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { deletePost, deleteComment } from '../actions'
 import Back from 'react-icons/lib/fa/angle-double-left'
+import { deletePost, deleteComment } from '../actions'
 
 
 class Delete extends Component {

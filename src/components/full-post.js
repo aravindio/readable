@@ -2,13 +2,13 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import TimeAgo from 'react-timeago'
-import { sendPostVote } from '../actions'
 import Up from 'react-icons/lib/go/arrow-up'
 import Down from 'react-icons/lib/go/arrow-down'
 import User from 'react-icons/lib/fa/user'
 import Clock from 'react-icons/lib/fa/clock-o'
 import Pencil from 'react-icons/lib/fa/pencil'
 import Trash from 'react-icons/lib/fa/trash'
+import { sendPostVote } from '../actions'
 
 class FullPost extends Component {
   render() {
